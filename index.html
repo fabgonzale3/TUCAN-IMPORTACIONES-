@@ -17,7 +17,7 @@
             user-select: none; /* Standard syntax */
         }
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://d22fxaf9t8d39k.cloudfront.net/descripciones/34c8b56e798974ad25f22b5294a8f7e5c52fae697bb992c53f6b6e5750748ff0382145.png');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://d22fxaf9t8d39k.cloudfront.net/descripciones/56b5669781922c1f46b54c7e897486a61e21226fb9cbf587bc1742dd0845accf382145.png');
             background-size: cover;
             background-position: center;
         }
@@ -67,18 +67,22 @@
         }
         .logo-carousel-container { cursor: grab; }
         .logo-carousel-container:active { cursor: grabbing; }
-        /* Loader for Gemini API */
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #8b5cf6;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        .calculator-result {
+            transition: all 0.5s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .calculator-result.show {
+            max-height: 1000px; /* Suficientemente grande para el contenido */
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .filter-btn.active {
+            background-color: #8b5cf6;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
         }
     </style>
 </head>
@@ -90,12 +94,16 @@
             <a href="#" class="text-xl font-bold text-purple-600">TUCAN IMPORTACIONES</a>
             <div class="hidden md:flex space-x-6 items-center">
                 <a href="#proveedores" class="text-gray-600 hover:text-purple-500 transition duration-300">Proveedores</a>
+                <a href="#calculadora" class="text-gray-600 hover:text-purple-500 transition duration-300">Calculadora</a>
+                <a href="#comparador" class="text-gray-600 hover:text-purple-500 transition duration-300">Comparador</a>
                 <a href="#logistica" class="text-gray-600 hover:text-purple-500 transition duration-300">Logística</a>
                 <a href="#cursos" class="text-gray-600 hover:text-purple-500 transition duration-300">Cursos</a>
                 <a href="#oferta" class="text-gray-600 hover:text-purple-500 transition duration-300">Oferta Final</a>
             </div>
              <div class="md:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <button id="menu-btn" class="text-gray-600 hover:text-purple-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
             </div>
         </nav>
     </header>
@@ -139,50 +147,92 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Acceso a las Marcas y Productos que Quieres</h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Te conectamos directamente con los fabricantes y distribuidores más importantes del mundo.</p>
                 </div>
-                <!-- Interactive Logo Carousel with new Images -->
                 <div id="logo-carousel" class="relative w-full overflow-hidden py-8 logo-carousel-container">
                     <div id="logo-track" class="flex w-max animate-scroll">
-                        <!-- Logos Grupo 1 -->
                         <div class="flex items-center space-x-16 px-8">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/4b85880fd6e33885d0b3f4410c9203010e1f2126701d75f77213bf4449621768382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/952e0cce15c0fb1285d20e2b8e4cf1e01879611996a852cbd3725e1f2eab6665382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/92942a6b7de9205a84f2716e00b9173d7969311d115a115e374de934ff4abbb2382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2e94ee689b20a73308c03de65f7d7bb7e86200d43c763dc93a11fd1635e14065382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2eaceac110a8cb3a0c5ba8666a390c4760faac15584562c3700cd2cb3236eb5b382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/1e219102257b01ab1e93b31dc9b2193a82d4a681e5351239adcbaf12de17f484382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/818dd87ac63b336bb69fdfc2a3da81a03cc3cce59084c4aaa9e7ea571a52990b382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/827959523015d58efdeba1292623a7939bcf94e0c8972f82c2ea705877c803e8382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/297ba9ddd20ecb4778010a3d408018cae18359872db0c0257b19489eb111ef3a382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/ec1be436f0e939e90aa14b337589ebe7332c290377df1650eff614ee86c8d88a382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/45af18f7a167ff44b7bf6b5f309bb5e6e0f9b2bc16fd046a128f41ee49e657a4382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/681b3aefad596f4b8fd4ed119147f08fd2db8a66763814459053970b0149a68f382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/5febf5b4c3a2c320092ddcdda6cfb135e72e88bafc5bea83c4a8c16aaa1e2538382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/185f547cfab75ac5db9daa6f6b8b7204374369ef7f346b9117ea1b6653c108e3382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/e6e059b2274cbfbdecdb22c6aaf3a1f76714ba7e8006077e0b124384f89bb8f7382145.png" alt="Logo de Marca" class="h-20 object-contain">
+                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/4b85880fd6e33885d0b3f4410c9203010e1f2126701d75f77213bf4449621768382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/952e0cce15c0fb1285d20e2b8e4cf1e01879611996a852cbd3725e1f2eab6665382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/92942a6b7de9205a84f2716e00b9173d7969311d115a115e374de934ff4abbb2382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2e94ee689b20a73308c03de65f7d7bb7e86200d43c763dc93a11fd1635e14065382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2eaceac110a8cb3a0c5ba8666a390c4760faac15584562c3700cd2cb3236eb5b382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/1e219102257b01ab1e93b31dc9b2193a82d4a681e5351239adcbaf12de17f484382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/818dd87ac63b336bb69fdfc2a3da81a03cc3cce59084c4aaa9e7ea571a52990b382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/827959523015d58efdeba1292623a7939bcf94e0c8972f82c2ea705877c803e8382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/297ba9ddd20ecb4778010a3d408018cae18359872db0c0257b19489eb111ef3a382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/ec1be436f0e939e90aa14b337589ebe7332c290377df1650eff614ee86c8d88a382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/45af18f7a167ff44b7bf6b5f309bb5e6e0f9b2bc16fd046a128f41ee49e657a4382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/681b3aefad596f4b8fd4ed119147f08fd2db8a66763814459053970b0149a68f382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/5febf5b4c3a2c320092ddcdda6cfb135e72e88bafc5bea83c4a8c16aaa1e2538382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/185f547cfab75ac5db9daa6f6b8b7204374369ef7f346b9117ea1b6653c108e3382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/e6e059b2274cbfbdecdb22c6aaf3a1f76714ba7e8006077e0b124384f89bb8f7382145.png" alt="Logo de Marca" class="h-20 object-contain">
                         </div>
-                        <!-- Logos Grupo 2 (Duplicado para el bucle) -->
                         <div class="flex items-center space-x-16 px-8">
-                           <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/4b85880fd6e33885d0b3f4410c9203010e1f2126701d75f77213bf4449621768382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/952e0cce15c0fb1285d20e2b8e4cf1e01879611996a852cbd3725e1f2eab6665382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/92942a6b7de9205a84f2716e00b9173d7969311d115a115e374de934ff4abbb2382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2e94ee689b20a73308c03de65f7d7bb7e86200d43c763dc93a11fd1635e14065382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2eaceac110a8cb3a0c5ba8666a390c4760faac15584562c3700cd2cb3236eb5b382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/1e219102257b01ab1e93b31dc9b2193a82d4a681e5351239adcbaf12de17f484382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/818dd87ac63b336bb69fdfc2a3da81a03cc3cce59084c4aaa9e7ea571a52990b382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/827959523015d58efdeba1292623a7939bcf94e0c8972f82c2ea705877c803e8382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/297ba9ddd20ecb4778010a3d408018cae18359872db0c0257b19489eb111ef3a382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/ec1be436f0e939e90aa14b337589ebe7332c290377df1650eff614ee86c8d88a382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/45af18f7a167ff44b7bf6b5f309bb5e6e0f9b2bc16fd046a128f41ee49e657a4382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/681b3aefad596f4b8fd4ed119147f08fd2db8a66763814459053970b0149a68f382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/5febf5b4c3a2c320092ddcdda6cfb135e72e88bafc5bea83c4a8c16aaa1e2538382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/185f547cfab75ac5db9daa6f6b8b7204374369ef7f346b9117ea1b6653c108e3382145.png" alt="Logo de Marca" class="h-20 object-contain">
-                            <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/e6e059b2274cbfbdecdb22c6aaf3a1f76714ba7e8006077e0b124384f89bb8f7382145.png" alt="Logo de Marca" class="h-20 object-contain">
+                           <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/4b85880fd6e33885d0b3f4410c9203010e1f2126701d75f77213bf4449621768382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/952e0cce15c0fb1285d20e2b8e4cf1e01879611996a852cbd3725e1f2eab6665382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/92942a6b7de9205a84f2716e00b9173d7969311d115a115e374de934ff4abbb2382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2e94ee689b20a73308c03de65f7d7bb7e86200d43c763dc93a11fd1635e14065382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/2eaceac110a8cb3a0c5ba8666a390c4760faac15584562c3700cd2cb3236eb5b382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/1e219102257b01ab1e93b31dc9b2193a82d4a681e5351239adcbaf12de17f484382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/818dd87ac63b336bb69fdfc2a3da81a03cc3cce59084c4aaa9e7ea571a52990b382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/827959523015d58efdeba1292623a7939bcf94e0c8972f82c2ea705877c803e8382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/297ba9ddd20ecb4778010a3d408018cae18359872db0c0257b19489eb111ef3a382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/ec1be436f0e939e90aa14b337589ebe7332c290377df1650eff614ee86c8d88a382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/45af18f7a167ff44b7bf6b5f309bb5e6e0f9b2bc16fd046a128f41ee49e657a4382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/681b3aefad596f4b8fd4ed119147f08fd2db8a66763814459053970b0149a68f382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/5febf5b4c3a2c320092ddcdda6cfb135e72e88bafc5bea83c4a8c16aaa1e2538382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/185f547cfab75ac5db9daa6f6b8b7204374369ef7f346b9117ea1b6653c108e3382145.png" alt="Logo de Marca" class="h-20 object-contain"><img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/e6e059b2274cbfbdecdb22c6aaf3a1f76714ba7e8006077e0b124384f89bb8f7382145.png" alt="Logo de Marca" class="h-20 object-contain">
                         </div>
                     </div>
                 </div>
                 <div class="mt-16 bg-purple-50 p-8 rounded-2xl"><p class="text-center text-lg text-gray-700">Encuentra: **Electrónica, perfumes árabes y europeos, vapers, zapatillas, celulares, notebooks, tablets, electrodomésticos, herramientas, cubiertas, cascos, indumentaria para motos** y miles de productos más.</p></div>
             </div>
         </section>
+
+        <!-- ========== CALCULADORA SECTION v2.2 ========== -->
+        <section id="calculadora" class="py-24 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Calculadora de Inversión Inteligente</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Ingresa tu capital, elige una categoría y descubre **oportunidades de inversión aleatorias**, basadas en rentabilidad y rápida rotación de stock.</p>
+                </div>
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">1. Elige una categoría:</label>
+                        <div class="flex flex-wrap gap-2 mb-6" id="category-filters">
+                            <button data-category="todos" class="filter-btn active px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-semibold">Todos</button>
+                            <button data-category="celulares" class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-semibold">Celulares</button>
+                            <button data-category="tecnologia" class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-semibold">Tecnología</button>
+                            <button data-category="perfumes" class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-semibold">Perfumes</button>
+                            <button data-category="vapers" class="filter-btn px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm font-semibold">Vapers</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="capital" class="block text-sm font-medium text-gray-700">2. Ingresa tu capital (ARS)</label>
+                        <div class="mt-1 flex flex-col sm:flex-row gap-4 items-center">
+                            <input type="number" id="capital" placeholder="Ej: 300000" class="flex-grow w-full px-4 py-3 bg-gray-100 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 text-lg">
+                            <button id="calculate-btn" class="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-md">
+                                <i class="fas fa-calculator mr-2"></i>Calcular
+                            </button>
+                        </div>
+                    </div>
+                    <div id="result-container" class="calculator-result mt-8">
+                         <div id="result-wrapper" class="bg-purple-50 p-6 rounded-lg space-y-4">
+                            <!-- Los resultados se insertarán aquí -->
+                         </div>
+                         <p class="text-xs text-center text-gray-500 mt-4">*Cálculos basados en una tasa de cambio de referencia de $1,200 ARS por USD. La rentabilidad y los precios de venta son estimativos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== COMPARADOR DE PRECIOS SECTION ========== -->
+        <section id="comparador" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Compara Precios y Mide tu Ganancia Potencial</h2>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Mira la diferencia real entre comprar afuera con nuestra red y los precios de distribuidores locales.</p>
+                <div class="overflow-x-auto shadow-lg rounded-lg">
+                    <table class="w-full text-left text-sm md:text-base">
+                        <thead class="bg-purple-800 text-white">
+                            <tr>
+                                <th class="p-4">Producto</th>
+                                <th class="p-4 text-center">Precio Proveedor (USD)</th>
+                                <th class="p-4 text-center">Precio Argentina (USD)</th>
+                                <th class="p-4 bg-purple-600 text-center">Diferencia Aprox.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">iPhone 16 Pro Max Sellado</td><td class="p-4 text-center">1080</td><td class="p-4 text-center">1250</td><td class="p-4 font-bold text-green-600 text-center">~16%</td></tr>
+                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">iPhone 13 Semi-Nuevo</td><td class="p-4 text-center">300</td><td class="p-4 text-center">430</td><td class="p-4 font-bold text-green-600 text-center">~43%</td></tr>
+                             <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Smart TV 32 pulgadas</td><td class="p-4 text-center">90</td><td class="p-4 text-center">180</td><td class="p-4 font-bold text-green-600 text-center">~100%</td></tr>
+                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Parlante JBL Flip 6</td><td class="p-4 text-center">76.50</td><td class="p-4 text-center">140</td><td class="p-4 font-bold text-green-600 text-center">~83%</td></tr>
+                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Vaper de 30.000 puffs</td><td class="p-4 text-center">9</td><td class="p-4 text-center">30</td><td class="p-4 font-bold text-green-600 text-center">+230%</td></tr>
+                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Samsung A16 128GB</td><td class="p-4 text-center">110</td><td class="p-4 text-center">210</td><td class="p-4 font-bold text-green-600 text-center">~91%</td></tr>
+                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Xiaomi 14C 256GB</td><td class="p-4 text-center">92</td><td class="p-4 text-center">175</td><td class="p-4 font-bold text-green-600 text-center">~90%</td></tr>
+                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Perfume Asad Negro</td><td class="p-4 text-center">16</td><td class="p-4 text-center">40</td><td class="p-4 font-bold text-green-600 text-center">~150%</td></tr>
+                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Smart TV 43"</td><td class="p-4 text-center">180</td><td class="p-4 text-center">410</td><td class="p-4 font-bold text-green-600 text-center">~128%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md max-w-3xl mx-auto">
+                    <p class="font-bold">Dato Clave:</p>
+                    <p>Los precios de Argentina se comparan con catálogos de **mayoristas reconocidos**, que exigen compras de muchas unidades. Con nuestra red, obtienes **precios aún más bajos comprando desde 1 sola unidad**.</p>
+                </div>
+            </div>
+        </section>
+
 
         <!-- ========== LOGÍSTICA ANIMADA SECTION ========== -->
         <section id="logistica" class="py-24 bg-purple-900">
@@ -204,7 +254,7 @@
         </section>
 
         <!-- ========== OFERTA SECUNDARIA (PROVEEDORES + LOGÍSTICA) ========== -->
-        <section id="oferta-parcial" class="py-20 bg-gray-50">
+        <section id="oferta-parcial" class="py-20 bg-gray-100">
              <div class="container mx-auto px-6">
                 <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 text-center border-t-4 border-purple-500">
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Acceso Directo a Proveedores y Logística</h2>
@@ -214,10 +264,10 @@
                         <span class="ml-2 text-lg text-gray-500">/ Pago Único</span>
                     </div>
                      <ul class="space-y-3 text-gray-700 text-left mb-8 inline-block">
-                       <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i><span>Acceso de por vida a la Red de Proveedores.</span></li>
-                       <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i><span>Uso ilimitado del sistema de Logística.</span></li>
+                       <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Acceso de por vida a la Red de Proveedores.</span></li>
+                       <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Uso ilimitado del sistema de Logística.</span></li>
+                       <li class="flex items-start"><i class="fab fa-whatsapp text-green-500 mr-3 mt-1"></i><span class="flex-1">Grupo de WhatsApp exclusivo con ofertas únicas que nuestros mayoristas nos brindan por nuestra larga relación comercial.</span></li>
                     </ul>
-                    <!-- BOTÓN DE PAGO 1: Con número de WhatsApp funcional -->
                     <a href="https://wa.me/543815730948?text=%C2%A1Hola!%20Estoy%20interesado%20en%20el%20Acceso%20Directo%20a%20Proveedores%20y%20Log%C3%ADstica%20por%20$21.999.%20%C2%BFC%C3%B3mo%20puedo%20abonar%3F" target="_blank" rel="noopener noreferrer" class="block w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-md">Consultar para Abonar</a>
                 </div>
              </div>
@@ -260,43 +310,6 @@
             </div>
         </section>
 
-        <!-- ========== COMPARADOR DE PRECIOS SECTION ========== -->
-        <section id="comparador" class="py-20 bg-gray-50">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Compara Precios y Mide tu Ganancia Potencial</h2>
-                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">Mira la diferencia real entre comprar afuera con nuestra red y los precios de distribuidores locales.</p>
-                <div class="overflow-x-auto shadow-lg rounded-lg">
-                    <table class="w-full text-left text-sm md:text-base">
-                        <thead class="bg-purple-800 text-white">
-                            <tr>
-                                <th class="p-4">Producto</th>
-                                <th class="p-4 text-center">Precio Proveedor (USD)</th>
-                                <th class="p-4 text-center">Precio Argentina (USD)</th>
-                                <th class="p-4 bg-purple-600 text-center">Diferencia Aprox.</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">iPhone 15 Pro Max 256GB</td><td class="p-4 text-center">1070</td><td class="p-4 text-center">1150 - 1350</td><td class="p-4 font-bold text-green-600 text-center">~17%</td></tr>
-                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">iPhone 13 Semi-Nuevo</td><td class="p-4 text-center">300</td><td class="p-4 text-center">350 - 450</td><td class="p-4 font-bold text-green-600 text-center">~33%</td></tr>
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Parlante JBL Flip 6</td><td class="p-4 text-center">77</td><td class="p-4 text-center">110 - 130</td><td class="p-4 font-bold text-green-600 text-center">~55%</td></tr>
-                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Vaper de 5000 puffs</td><td class="p-4 text-center">5</td><td class="p-4 text-center">10 - 20</td><td class="p-4 font-bold text-green-600 text-center">+200%</td></tr>
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Samsung A15 128GB</td><td class="p-4 text-center">110</td><td class="p-4 text-center">140 - 150</td><td class="p-4 font-bold text-green-600 text-center">~32%</td></tr>
-                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Xiaomi 14C 256GB</td><td class="p-4 text-center">80</td><td class="p-4 text-center">140 - 160</td><td class="p-4 font-bold text-green-600 text-center">~87%</td></tr>
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Lattafa Asad</td><td class="p-4 text-center">16</td><td class="p-4 text-center">30 - 45</td><td class="p-4 font-bold text-green-600 text-center">~134%</td></tr>
-                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Xerjoff Erba Pura</td><td class="p-4 text-center">190</td><td class="p-4 text-center">250 - 300</td><td class="p-4 font-bold text-green-600 text-center">~45%</td></tr>
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Dior Sauvage EDP</td><td class="p-4 text-center">92</td><td class="p-4 text-center">140 - 180</td><td class="p-4 font-bold text-green-600 text-center">~74%</td></tr>
-                            <tr class="bg-gray-50 hover:bg-purple-50"><td class="p-4 font-semibold">Notebook (i5/8GB/512GB)</td><td class="p-4 text-center">400</td><td class="p-4 text-center">600 - 700</td><td class="p-4 font-bold text-green-600 text-center">~62%</td></tr>
-                            <tr class="hover:bg-purple-50"><td class="p-4 font-semibold">Smart TV 32"</td><td class="p-4 text-center">90</td><td class="p-4 text-center">140 - 170</td><td class="p-4 font-bold text-green-600 text-center">~72%</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md max-w-3xl mx-auto">
-                    <p class="font-bold">Dato Clave:</p>
-                    <p>Los precios de Argentina se comparan con catálogos de **mayoristas reconocidos**, que exigen compras de muchas unidades. Con nuestra red, obtienes **precios aún más bajos comprando desde 1 sola unidad**.</p>
-                </div>
-            </div>
-        </section>
-
         <!-- ========== OFERTA UNIFICADA SECTION ========== -->
         <section id="oferta" class="py-24 bg-white">
             <div class="container mx-auto px-6">
@@ -314,12 +327,12 @@
                     <div class="pt-24 text-center">
                         <h3 class="text-2xl font-bold mb-6">¿Qué incluye tu acceso?</h3>
                         <ul class="space-y-4 text-gray-700 text-left">
-                           <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span>Acceso de por vida a la Red de **Proveedores**.</span></li>
-                           <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span>Uso ilimitado del sistema de **Logística** simplificada.</span></li>
-                           <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span>Inscripción completa al **Curso** de E-commerce.</span></li>
-                           <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span>Acceso a futuras actualizaciones y nuevos módulos.</span></li>
+                           <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 text-xl"></i><span>Acceso de por vida a la Red de **Proveedores**.</span></li>
+                           <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 text-xl"></i><span>Uso ilimitado del sistema de **Logística** simplificada.</span></li>
+                           <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 text-xl"></i><span>Inscripción completa al **Curso** de E-commerce.</span></li>
+                           <li class="flex items-start"><i class="fab fa-whatsapp text-green-500 mr-3 mt-1 text-xl"></i><span class="flex-1">**Grupo de WhatsApp Exclusivo** con ofertas y códigos de descuento que solo nosotros conseguimos gracias a nuestra relación directa con los mayoristas.</span></li>
+                           <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1 text-xl"></i><span>Acceso a futuras actualizaciones y nuevos módulos.</span></li>
                         </ul>
-                         <!-- BOTÓN DE PAGO 2: Con número de WhatsApp funcional -->
                         <a href="https://wa.me/543815730948?text=%C2%A1Hola!%20Estoy%20interesado%20en%20el%20Acceso%20Total%20por%20$39.799.%20%C2%BFC%C3%B3mo%20puedo%20abonar%3F" target="_blank" rel="noopener noreferrer" class="block mt-10 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-transform duration-300 hover:scale-105 shadow-lg">Consultar para Abonar</a>
                     </div>
                 </div>
@@ -337,48 +350,168 @@
     </footer>
     
     <script>
+        // --- Carrusel de Logos ---
         const carousel = document.getElementById('logo-carousel');
-        const track = document.getElementById('logo-track');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-        carousel.addEventListener('mouseenter', () => { track.classList.add('scrolling-paused'); });
-        carousel.addEventListener('mouseleave', () => { if (!isDown) { track.classList.remove('scrolling-paused'); }});
-        carousel.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - carousel.offsetLeft;
-            scrollLeft = carousel.scrollLeft;
-            track.classList.add('scrolling-paused');
+        if (carousel) {
+            const track = document.getElementById('logo-track');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            carousel.addEventListener('mouseenter', () => track.classList.add('scrolling-paused'));
+            carousel.addEventListener('mouseleave', () => { if (!isDown) track.classList.remove('scrolling-paused'); });
+            carousel.addEventListener('mousedown', (e) => {
+                isDown = true;
+                startX = e.pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                track.classList.add('scrolling-paused');
+            });
+            carousel.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('scrolling-paused'); });
+            carousel.addEventListener('mouseup', () => { isDown = false; track.classList.remove('scrolling-paused'); });
+            carousel.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
+            carousel.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                track.classList.add('scrolling-paused');
+            }, {passive: true});
+            carousel.addEventListener('touchend', () => { isDown = false; track.classList.remove('scrolling-paused'); });
+            carousel.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            }, {passive: true});
+        }
+
+        // --- Lógica de la Calculadora v2.2 ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const capitalInput = document.getElementById('capital');
+            const resultContainer = document.getElementById('result-container');
+            const resultWrapper = document.getElementById('result-wrapper');
+            const categoryFilters = document.getElementById('category-filters');
+            let activeCategory = 'todos';
+            const exchangeRate = 1200;
+
+            const products = [
+                { name: 'Samsung A16 128GB', cost: 110, sell: 210, category: 'celulares' },
+                { name: 'Samsung A06 64GB', cost: 74, sell: 130, category: 'celulares' },
+                { name: 'Samsung A06 128GB', cost: 77, sell: 140, category: 'celulares' },
+                { name: 'iPhone 11 64GB Semi-Nuevo', cost: 190, sell: 300, category: 'celulares' },
+                { name: 'iPhone 11 128GB Semi-Nuevo', cost: 205, sell: 320, category: 'celulares' },
+                { name: 'Xiaomi 14C 128GB', cost: 80, sell: 169, category: 'celulares' },
+                { name: 'Xiaomi 14C 256GB', cost: 92, sell: 175, category: 'celulares' },
+                { name: 'Xiaomi 14C 512GB', cost: 96, sell: 179, category: 'celulares' },
+                { name: 'Xiaomi A3 128GB', cost: 69, sell: 130, category: 'celulares' },
+                { name: 'iPhone 16 Pro Max Sellado', cost: 1080, sell: 1250, category: 'celulares' },
+                { name: 'iPhone 13 128GB Semi-Nuevo', cost: 300, sell: 430, category: 'celulares' },
+                { name: 'iPhone 13 Pro Max 128GB', cost: 415, sell: 550, category: 'celulares' },
+                { name: 'Perfume Asad Negro', cost: 16, sell: 40, category: 'perfumes' },
+                { name: 'Perfume Asad Azul', cost: 16, sell: 40, category: 'perfumes' },
+                { name: 'Perfume Asad Marrón', cost: 27, sell: 50, category: 'perfumes' },
+                { name: 'Perfume Yara Candy', cost: 16.50, sell: 39, category: 'perfumes' },
+                { name: 'Perfume Yara Tous', cost: 18, sell: 37, category: 'perfumes' },
+                { name: 'Perfume Yara Rosa Claro', cost: 26, sell: 47, category: 'perfumes' },
+                { name: 'Perfume Club de Nuit', cost: 25, sell: 49, category: 'perfumes' },
+                { name: 'Perfume Mandarín', cost: 34, sell: 60, category: 'perfumes' },
+                { name: 'Vaper de 5000 puffs', cost: 5, sell: 13, category: 'vapers' },
+                { name: 'Vaper de 8000 puffs', cost: 7, sell: 17, category: 'vapers' },
+                { name: 'Vaper de 25000 puffs', cost: 9.25, sell: 25, category: 'vapers' },
+                { name: 'Vaper de 30000 puffs', cost: 9, sell: 30, category: 'vapers' },
+                { name: 'PlayStation 5 Slim 1TB', cost: 455, sell: 788, category: 'tecnologia' },
+                { name: 'PlayStation 5 Porta Disco 1TB', cost: 516, sell: 840, category: 'tecnologia' },
+                { name: 'Freidora de aire 2L', cost: 30, sell: 58, category: 'tecnologia' },
+                { name: 'Smart TV 32 pulgadas', cost: 90, sell: 180, category: 'tecnologia' },
+                { name: 'Smart TV 43 pulgadas', cost: 180, sell: 410, category: 'tecnologia' },
+                { name: 'Parlante JBL GO 4', cost: 30, sell: 52, category: 'tecnologia' },
+                { name: 'Parlante JBL Flip 7', cost: 89, sell: 150, category: 'tecnologia' },
+                { name: 'Parlante JBL Flip 6', cost: 76.50, sell: 140, category: 'tecnologia' },
+                { name: 'Drone Neo Fly Combo', cost: 359, sell: 680, category: 'tecnologia' },
+            ];
+            
+            const formatCurrency = (value) => value.toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0 });
+            
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            if (categoryFilters) {
+                categoryFilters.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'BUTTON') {
+                        document.querySelector('.filter-btn.active').classList.remove('active');
+                        e.target.classList.add('active');
+                        activeCategory = e.target.dataset.category;
+                    }
+                });
+            }
+
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', () => {
+                    const capital = parseFloat(capitalInput.value);
+                    if (isNaN(capital) || capital <= 0) {
+                        resultWrapper.innerHTML = '<p class="text-red-600 font-semibold">Por favor, ingresa un monto de capital válido.</p>';
+                        resultContainer.classList.add('show');
+                        return;
+                    }
+
+                    const filteredProducts = products.filter(p => {
+                        const costInArs = p.cost * exchangeRate;
+                        return (activeCategory === 'todos' || p.category === activeCategory) && capital >= costInArs;
+                    });
+                    
+                    if (filteredProducts.length === 0) {
+                        resultWrapper.innerHTML = `<p>Con ${formatCurrency(capital)}, no hay productos recomendados en esta categoría que puedas comprar. Prueba con un capital mayor o elige otra categoría.</p>`;
+                        resultContainer.classList.add('show');
+                        return;
+                    }
+
+                    const recommendations = filteredProducts.map(p => {
+                        const costInArs = p.cost * exchangeRate;
+                        const sellInArs = p.sell * exchangeRate;
+                        const profitPerUnit = sellInArs - costInArs;
+                        const profitability = profitPerUnit / costInArs;
+                        return { ...p, profitability, costInArs };
+                    });
+                    
+                    recommendations.sort((a, b) => b.profitability - a.profitability);
+                    
+                    shuffleArray(recommendations);
+                    
+                    const top3 = recommendations.slice(0, 3);
+                    
+                    let resultHTML = '<h3 class="font-bold text-lg text-gray-800 mb-2">Tus Mejores Oportunidades Aleatorias:</h3>';
+
+                    if (top3.length > 0) {
+                         top3.forEach((rec, index) => {
+                            const units = Math.floor(capital / rec.costInArs);
+                            const investment = units * rec.costInArs;
+                            const totalProfit = units * (rec.sell * exchangeRate - rec.costInArs);
+                            resultHTML += `
+                                <div class="p-4 rounded-md ${index % 2 === 0 ? 'bg-white' : 'bg-gray-100'} border border-gray-200">
+                                    <p class="font-bold text-purple-700">${index + 1}. ${rec.name}</p>
+                                    <p class="text-sm">Con una inversión de <span class="font-semibold">${formatCurrency(investment)}</span>, puedes comprar <span class="font-semibold">${units} ${units > 1 ? 'unidades' : 'unidad'}</span>.</p>
+                                    <p class="text-sm">Tu ganancia neta estimada sería de <strong class="text-green-600">${formatCurrency(totalProfit)}</strong> (Rentabilidad del ${ (rec.profitability * 100).toFixed(0) }%).</p>
+                                </div>
+                            `;
+                        });
+                    } else {
+                         resultHTML += '<p>No se encontraron recomendaciones para el capital y categoría seleccionados.</p>';
+                    }
+                   
+                    resultWrapper.innerHTML = resultHTML;
+                    resultContainer.classList.add('show');
+                });
+            }
         });
-        const endDrag = () => {
-            isDown = false;
-            track.classList.remove('scrolling-paused');
-        };
-        carousel.addEventListener('mouseleave', endDrag);
-        carousel.addEventListener('mouseup', endDrag);
-        carousel.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 2;
-            carousel.scrollLeft = scrollLeft - walk;
-        });
-        carousel.addEventListener('touchstart', (e) => {
-             isDown = true;
-             startX = e.touches[0].pageX - carousel.offsetLeft;
-             scrollLeft = carousel.scrollLeft;
-             track.classList.add('scrolling-paused');
-        }, {passive: true});
-        carousel.addEventListener('touchend', () => {
-            isDown = false;
-            track.classList.remove('scrolling-paused');
-        });
-        carousel.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            const x = e.touches[0].pageX - carousel.offsetLeft;
-            const walk = (x - startX) * 2;
-            carousel.scrollLeft = scrollLeft - walk;
-        }, {passive: true});
     </script>
 </body>
 </html>
