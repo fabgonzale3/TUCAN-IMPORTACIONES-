@@ -15,10 +15,39 @@
             -webkit-user-select: none; /* Safari */
             -ms-user-select: none; /* IE 10+ */
             user-select: none; /* Standard syntax */
-            background-color: #ffffff;
-            /* Fondo con líneas de gusano SVG */
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b5cf6' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-color: #f9fafb;
         }
+        
+        /* FONDO ANIMADO DE LÍNEAS */
+        @keyframes move-lines {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-100px, -100px);
+            }
+        }
+        .bg-animated-lines {
+            position: relative;
+            z-index: 1;
+            background-color: #f9fafb;
+            overflow: hidden;
+        }
+        .bg-animated-lines::before {
+            content: '';
+            position: absolute;
+            width: 300%;
+            height: 300%;
+            top: -100%;
+            left: -100%;
+            z-index: -1;
+            background-image: 
+                linear-gradient(45deg, rgba(167, 139, 250, 0.2) 1px, transparent 0),
+                linear-gradient(-45deg, rgba(167, 139, 250, 0.2) 1px, transparent 0);
+            background-size: 30px 30px;
+            animation: move-lines 15s linear infinite;
+        }
+
         .hero-bg {
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://d22fxaf9t8d39k.cloudfront.net/descripciones/56b5669781922c1f46b54c7e897486a61e21226fb9cbf587bc1742dd0845accf382145.png');
             background-size: cover;
@@ -87,21 +116,6 @@
             transform: scale(1.05);
             box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
         }
-        .offer-progress-bar-container {
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            padding: 4px;
-        }
-        .offer-progress-bar {
-            background: linear-gradient(90deg, #fbbf24, #f59e0b);
-            height: 10px;
-            border-radius: 9999px;
-            animation: progressBar 2s ease-out forwards;
-        }
-        @keyframes progressBar {
-            from { width: 0%; }
-            to { width: 85%; }
-        }
         .suite-preview-card {
             background: #fff;
             border-radius: 1rem;
@@ -114,12 +128,6 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 30px rgba(139, 92, 246, 0.2);
         }
-        .mobile-menu-link {
-            transition: transform 0.2s ease-in-out;
-        }
-        .mobile-menu-link:hover {
-            transform: scale(1.1);
-        }
         .collapsible-content {
             max-height: 0;
             overflow: hidden;
@@ -128,9 +136,15 @@
         .logo-glow {
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
         }
+        .mobile-menu-link {
+            transition: transform 0.2s ease-in-out;
+        }
+        .mobile-menu-link:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="text-gray-800">
 
     <!-- ========== HEADER ========== -->
     <header class="bg-white/90 backdrop-blur-sm shadow-md sticky top-0 z-40">
@@ -153,8 +167,8 @@
         <section id="inicio" class="hero-bg text-white">
             <div class="container mx-auto px-6 py-24 md:py-32 text-center">
                 <img src="https://d22fxaf9t8d39k.cloudfront.net/descripciones/e4db723bb752b7154e12c82afbb745d2780b76c38c90d2134e4941772c510179382145.png" alt="SUITPRO Logo" class="h-48 md:h-56 mx-auto mb-6 logo-glow">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight hero-text-shadow">Importa Sin Límites. Invierte Inteligente.</h1>
-                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto hero-text-shadow">Te damos las herramientas, los cursos y los contactos para que compres en el exterior de forma segura, económica y sin sorpresas.</p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 leading-tight hero-text-shadow">Importá Mejor. Pagá Menos. Vendé Más.</h1>
+                <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto hero-text-shadow">Accedé a una red exclusiva de proveedores, cursos y logística internacional para importar de forma segura y rentable.<br>🎯 Ideal para emprendedores, revendedores y mayoristas.</p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                      <a href="#oferta" class="w-full sm:w-auto bg-purple-600 text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-purple-700 transition duration-300 shadow-xl flex items-center justify-center animate-pulse-custom">
                         <i class="fas fa-rocket mr-3"></i>Quiero el Acceso Total
@@ -167,17 +181,17 @@
         </section>
 
         <!-- ========== KEY BENEFITS SECTION ========== -->
-        <section class="bg-white py-12">
+        <section class="bg-animated-lines py-12">
             <div class="container mx-auto px-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-4xl mx-auto">
-                    <div class="flex items-center justify-center bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
                         <i class="fas fa-hand-holding-usd text-4xl text-purple-500 mr-4"></i>
                         <div>
                             <h3 class="text-xl font-bold text-gray-800">Vende sin Stock ni Inversión</h3>
                             <p class="text-gray-600">Te enseñamos el modelo dropshipping para vender solo con tu celular.</p>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center bg-gray-50 p-6 rounded-lg shadow-md">
+                    <div class="flex items-center justify-center bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
                          <i class="fas fa-mobile-alt text-4xl text-purple-500 mr-4"></i>
                         <div>
                             <h3 class="text-xl font-bold text-gray-800">Gestiona Todo desde tu Celular</h3>
@@ -210,13 +224,13 @@
         </section>
 
         <!-- ========== CALCULADORA SECTION ========== -->
-        <section id="calculadora" class="py-24 bg-gray-50">
+        <section id="calculadora" class="bg-animated-lines py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Calculadora de Inversión Inteligente</h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Ingresa tu capital, elige una categoría y descubre **oportunidades de inversión aleatorias**.</p>
                 </div>
-                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
+                <div class="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">1. Elige una categoría:</label>
                         <div class="flex flex-wrap gap-2 mb-6" id="category-filters">
@@ -246,10 +260,10 @@
         </section>
         
         <!-- ========== COMPARADOR DE PRECIOS SECTION (PLEGABLE Y SIN BUSCADOR) ========== -->
-        <section id="comparador" class="py-20 bg-white">
+        <section id="comparador" class="py-20 bg-animated-lines">
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto">
-                    <button id="toggle-comparator-btn" class="w-full text-left bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex justify-between items-center hover:bg-gray-100 transition-colors duration-300">
+                    <button id="toggle-comparator-btn" class="w-full text-left bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-200 p-4 flex justify-between items-center hover:bg-gray-100/80 transition-colors duration-300">
                         <div>
                             <h2 class="text-xl md:text-2xl font-bold text-gray-900">Compara Precios y Mide tu Ganancia</h2>
                             <p class="text-sm md:text-base text-gray-500">Haz clic aquí para ver la diferencia de precios</p>
@@ -257,8 +271,8 @@
                         <i id="comparator-icon" class="fas fa-chevron-down text-purple-500 text-2xl transition-transform duration-300"></i>
                     </button>
                     <div id="comparator-content" class="collapsible-content">
-                        <div class="pt-6">
-                             <div id="comparator-cards" class="space-y-3">
+                        <div class="pt-6 overflow-x-auto">
+                             <div id="comparator-cards" class="space-y-3 min-w-[600px] md:min-w-0">
                                 <!-- Las tarjetas de productos se insertarán aquí con JavaScript -->
                             </div>
                         </div>
@@ -273,10 +287,12 @@
         </section>
         
         <!-- ========== DEMÁS SECCIONES RESTAURADAS ========== -->
-        <section id="suite-preview" class="py-24 bg-gray-50">
+        <section id="suite-preview" class="py-24 bg-animated-lines">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Una Muestra de Lumen</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 flex items-center justify-center gap-3">
+                        Lumen
+                    </h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Las herramientas IA que te ayudarán a planificar y vender.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -341,9 +357,9 @@
             </div>
         </section>
 
-        <section id="oferta-parcial" class="py-20 bg-gray-50">
+        <section id="oferta-parcial" class="bg-animated-lines py-20">
              <div class="container mx-auto px-6">
-                <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 text-center border-t-4 border-purple-500">
+                <div class="max-w-2xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 text-center border-t-4 border-purple-500">
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Acceso Directo a Proveedores y Logística</h2>
                     <p class="mt-2 text-gray-600">Ideal si ya tienes tu sistema de ventas y solo necesitas los contactos y el método de envío.</p>
                     <div class="my-8 flex justify-center items-baseline">
@@ -355,16 +371,20 @@
                        <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i><span>Uso ilimitado del sistema de Logística.</span></li>
                        <li class="flex items-start"><i class="fab fa-whatsapp text-green-500 mr-3 mt-1"></i><span class="flex-1">Grupo de WhatsApp exclusivo con ofertas que no existen en el mercado, gracias a nuestros acuerdos directos con proveedores.</span></li>
                     </ul>
+                     <div class="my-6 bg-purple-50 border-l-4 border-purple-500 text-purple-800 p-4 rounded-r-lg text-left">
+                        <p class="font-bold">Nota de Confianza:</p>
+                        <p class="text-sm">Todos nuestros proveedores son testeados rigurosamente. Verificamos la calidad de los productos, su originalidad y el cumplimiento de garantías para asegurar que solo trabajes con los más confiables.</p>
+                    </div>
                     <a href="https://wa.me/543815730948?text=%C2%A1Hola!%20Estoy%20interesado%20en%20el%20Acceso%20Directo%20a%20Proveedores%20y%20Log%C3%ADstica%20por%20$21.999.%20%C2%BFC%C3%B3mo%20puedo%20abonar%3F" target="_blank" rel="noopener noreferrer" class="block w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-md">Consultar para Abonar</a>
                 </div>
              </div>
         </section>
         
-        <section id="cursos" class="py-20 bg-white">
+        <section id="cursos" class="bg-animated-lines py-20">
              <div class="container mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">O Acelera tu Negocio con Nuestra Formación Completa</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
                         <img src="https://placehold.co/600x400/8b5cf6/ffffff?text=E-commerce+desde+Casa" alt="Imagen del curso de importación" class="w-full h-48 object-cover">
                         <div class="p-6 flex-grow">
                             <h3 class="text-2xl font-bold mb-3">Curso de Importación y E-commerce</h3>
@@ -378,7 +398,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden flex flex-col h-full">
                         <img src="https://placehold.co/600x400/c084fc/ffffff?text=Marketing+Certificado" alt="Imagen de curso de marketing" class="w-full h-48 object-cover">
                         <div class="p-6 flex-grow flex flex-col">
                             <h3 class="text-2xl font-bold mb-2">Marketing Avanzado para Importadores</h3>
@@ -396,13 +416,13 @@
             </div>
         </section>
         
-        <section id="oferta" class="py-24 bg-white">
+        <section id="oferta" class="bg-animated-lines py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Una Oferta Única para un Acceso Total</h2>
                     <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Todo lo que necesitas para lanzar y escalar tu negocio de importación, en un solo paquete.</p>
                 </div>
-                <div class="mt-16 max-w-md mx-auto bg-white rounded-2xl shadow-2xl p-8 relative border-2 border-purple-300">
+                <div class="mt-16 max-w-md mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 relative border-2 border-purple-300">
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
                         <div class="w-40 h-40 md:w-48 md:h-48 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex flex-col items-center justify-center text-white animate-pulse-custom">
                             <span class="text-4xl md:text-5xl font-bold">$59.999</span>
@@ -423,7 +443,7 @@
             </div>
         </section>
 
-        <section id="creacion-web" class="py-20 bg-gray-50">
+        <section id="creacion-web" class="py-20 bg-animated-lines">
              <div class="container mx-auto px-6">
                 <div class="max-w-3xl mx-auto bg-gray-800 text-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
                     <i class="fas fa-rocket text-5xl mb-4 text-purple-400"></i>
@@ -511,10 +531,10 @@
                         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex items-center justify-between">
                             <div class="flex-grow">
                                 <p class="font-bold text-gray-800 text-base md:text-lg">${product.name}</p>
-                                <div class="flex items-center text-gray-500 text-sm md:text-base mt-1">
-                                    <span class="mr-1">Precio SUITPRO:</span> <b class="text-gray-800">$${product.supplierPrice.toFixed(2)}</b>
-                                    <span class="mx-2 text-gray-300">|</span>
-                                    <span class="mr-1">Otros Proveedores:</span> <b class="text-gray-800">$${product.localPrice.toFixed(2)}</b>
+                                <div class="flex flex-wrap items-baseline text-gray-500 text-sm md:text-base mt-1">
+                                    <span class="mr-2">Precio SUITPRO: <b class="text-gray-800">$${product.supplierPrice.toFixed(2)}</b></span>
+                                    <span class="mx-2 text-gray-300 hidden sm:inline">|</span>
+                                    <span class="mr-1">Otros Proveedores: <b class="text-gray-800">$${product.localPrice.toFixed(2)}</b></span>
                                 </div>
                             </div>
                             <div class="flex-shrink-0 ml-4">
@@ -642,7 +662,7 @@
                     }
                 });
             }
-
+            
             // --- Menú Flotante ---
             const floatingMenuBtn = document.getElementById('floating-menu-btn');
             const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
